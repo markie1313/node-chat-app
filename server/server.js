@@ -17,7 +17,19 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (message) => {
     console.log('createMessage', message);
-    io.emit('newMessage', {//io.emit sends to all connected users
+    // io.emit('newMessage', {//io.emit sends to all connected users
+    //   from: 'Admin',
+    //   text: 'Welcome Phred to the chat',
+    //   createdAt: new Date().getTime()
+    // });
+
+    socket.emit('newMessage', {//io.emit sends to all connected users
+      from: 'Admin',
+      text: 'Welcome to the chat',
+      createdAt: new Date().getTime()
+    });
+
+    socket.broadcast.emit('newMessage', {
       from: message.from,
       text: message.text,
       createdAt: new Date().getTime()
